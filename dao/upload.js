@@ -39,8 +39,4 @@ exports.insert = function(param, callBack){
     Upload.create(param).then(function(result){
         callBack(result);
     });
-}
-//Upload.sync({force: false}).then(function () {
-//    // Table created
-//    return Upload.findAndCountAll();
-//});
+};

@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var connection = new Sequelize('test', 'root', '6413260', {
+var connection = new Sequelize('node', 'root', '6413260', {
     host: '127.0.0.1',
     dialect: 'mysql',
 
