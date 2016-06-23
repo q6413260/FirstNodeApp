@@ -14,23 +14,24 @@ router.get('/', function(req, res, next) {
 router.post('/upload', function(req, res, next){
     var form = new formidable.IncomingForm(req),docs=[];;
     var url;
-    //存放目录
+    
     form.uploadDir = 'tmp/';
     form.parse(req);
-
     form.on('file', function(field, file) {
         var date = new Date();
         var ms = Date.parse(date);
         docs.push(file);
-        url = "tmp/files" + ms + '_'+file.name;
-        fs.renameSync(file.path, url);
+        url = "/alidata1/admin/xiaoming/FirstNodeApp/tmp/files" + ms + '_'+file.name;
+	fs.renameSync(file.path, url);
     }).on('end', function() {
         var responseData={
             success: true,
             url: url
         };
         res.send(responseData);
-    });
+    }).on('error', function(err){
+	console.log(err);
+});
 });
 
 router.post('/submit', function(req, res, next){
@@ -53,6 +54,7 @@ router.get('/download', function(req, res, next){
     var downloadUrl = req.query.url;
     res.download(downloadUrl, function(err){
         if(err){
+		console.log(err);
             console.log('download err url' + downloadUrl);
         }
     });
