@@ -1,39 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>下载列表</title>
       <link rel='stylesheet' href='/stylesheets/style.css' />
       <link rel='stylesheet' href='/bootstrap/css/bootstrap.min.css' />
       <link rel='stylesheet' href='/bootstrap/css/bootstrap-theme.min.css' />
       <link rel='stylesheet' href='/stylesheets/fine-uploader.min.css' />
+      <link rel="stylesheet" href="/DataTables/css/jquery.dataTables.min.css">
   </head>
   <body>
-    <center><h1><%= title %></h1></center>
-    <button type="button" class="btn btn-info" id="upload">上传</button>
-
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th width="15%">上传者</th>
-                <th width="15%">书名</th>
-                <th width="40%">点评</th>
-                <th width="15%">上传时间</th>
-                <th width="15%">下载</th>
-            </tr>
-        </thead>
-        <tbody>
-        <% list.forEach(function(item){%>
-            <tr>
-                <td><%= item.dataValues.author %></td>
-                <td><%= item.dataValues.bookName %></td>
-                <td><%= item.dataValues.remark %></td>
-                <td><%= formatDate(item.dataValues.createdAt, "YYYY-MM-DD HH:mm:ss") %></td>
-                <td><a href="/download?url=<%= encodeURI(item.dataValues.url)%>">下载</a> </td>
-            </tr>
-        <%})%>
-        </tbody>
-    </table>
-
+    <center><button type="button" class="btn btn-info" id="upload">上传</button></center>
+    <table id="dataTable" class="table table-striped table-bordered table-hover"></table>
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -138,6 +115,7 @@
     <script src="/javascripts/jquery-2.1.4.min.js"></script>
     <script src="/javascripts/fine-uploader.min.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/DataTables/js/jquery.dataTables.min.js"></script>
     <script src="/javascripts/upload.js"></script>
   </body>
 </html>

@@ -4,10 +4,15 @@ var upload = require('../dao/upload');
 var formidable = require('formidable');
 var fs = require('fs');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
     upload.findAll(function(result){
-        res.render('show', {title: '下载列表', list: result});
+        res.render('show');
+    })
+});
+
+router.get('/show', function(req, res, next) {
+    upload.findAll(function(result){
+        res.json(result);
     })
 });
 
