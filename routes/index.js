@@ -53,7 +53,9 @@ router.get('/download', function(req, res, next){
     var downloadUrl = req.query.url;
     res.download(downloadUrl, function(err){
         if(err){
-            console.log('download err url' + downloadUrl);
+            console.log(err);
+            console.log('download err url ' + downloadUrl);
+            res.end("下载失败!");
         }
     });
 });
