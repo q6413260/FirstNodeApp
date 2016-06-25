@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>登录</title>
+      <link rel='stylesheet' href='/bootstrap/css/bootstrap.min.css' />
+      <link rel='stylesheet' href='/bootstrap/css/bootstrap-theme.min.css' />
+  </head>
+  <body style="background: #f9f9f9">
+    <div style="margin-bottom: 15px;margin-top: 60px;text-align: center; font-size: 13px">
+        <h1 style="font-size: 25px;font-weight: 300">Sign in Github</h1>
+    </div>
+
+    <div style="border:1px solid #d8dee2;border-radius: 5px;width: 340px;margin: auto;padding: 20px; background: #fff">
+        <form>
+            <div class="form-group">
+                <label for="name">Email address</label>
+                <input type="text" class="form-control" id="name" placeholder="name">
+            </div>
+            <div class="form-group">
+                <label for="pasword">Password</label>
+                <input type="password" class="form-control" id="pasword" placeholder="Password">
+            </div>
+            <% if(typeof(error) !== 'undefined' && error){ %>
+            <div class="bg-danger" style="margin-bottom: 15px;border-radius: 5px;padding: 7px"><%= error%></div>
+            <%}%>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success btn-block" style="background: #60b044" value="Sign in"/>
+            </div>
+
+        </form>
+    </div>
+
+
+  </body>
+</html>

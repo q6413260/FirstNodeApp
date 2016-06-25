@@ -1,7 +1,7 @@
 (function ($) {
     var resource = {
         showAllUploadData: function (param) {
-            $.get("/show", param, function (data) {
+            $.get("/getUploadDatas", param, function (data) {
                 initTable(data);
             });
         }

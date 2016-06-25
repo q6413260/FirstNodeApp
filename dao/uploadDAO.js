@@ -22,10 +22,10 @@ var Upload = sequelize.define('upload', {
     updatedAt: {
         type: Sequelize.DATE,
         field: 'updated_at'
-    }
-}, {
+    }},
+    {
     freezeTableName: true // Model tableName will be the same as the model name
-});
+    });
 
 exports.findAll = function(callBack){
     Upload.findAll({

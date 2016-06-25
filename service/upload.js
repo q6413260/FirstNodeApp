@@ -1,22 +1,21 @@
-var express = require('express');
-var router = express.Router();
-var upload = require('../dao/upload');
+/**
+ * Created by yeming on 25/6/2016.
+ */
 var formidable = require('formidable');
 var fs = require('fs');
+var upload = require('../dao/uploadDAO');
 
-router.get('/', function (req, res, next) {
-    upload.findAll(function (result) {
-        res.render('show');
-    })
-});
+exports.showUpload = function(req, res, next){
+    res.render('showUpload');
+};
 
-router.get('/show', function (req, res, next) {
+exports.getUploadDatas = function(req, res, next){
     upload.findAll(function (result) {
         res.json(result);
     })
-});
+};
 
-router.post('/upload', function (req, res, next) {
+exports.upload = function(req, res, next){
     var form = new formidable.IncomingForm(req), docs = [];
     var url;
     form.uploadDir = 'tmp/';
@@ -25,7 +24,7 @@ router.post('/upload', function (req, res, next) {
         var date = new Date();
         var ms = Date.parse(date);
         docs.push(file);
-        url = "/alidata1/admin/xiaoming/FirstNodeApp/tmp/files" + ms + '_' + file.name;
+        url = "/tmp/files" + ms + '_' + file.name;
         fs.renameSync(file.path, url);
     }).on('end', function () {
         var responseData = {
@@ -36,9 +35,9 @@ router.post('/upload', function (req, res, next) {
     }).on('error', function (err) {
         console.log(err);
     });
-});
+};
 
-router.post('/submit', function (req, res, next) {
+exports.submit = function(req, res, next){
     var form = new formidable.IncomingForm(req), param = {};
     //存放目录
     form.parse(req);
@@ -52,9 +51,9 @@ router.post('/submit', function (req, res, next) {
             res.redirect("/")
         });
     });
-});
+};
 
-router.get('/download', function (req, res, next) {
+exports.download = function(req, res, next){
     var downloadUrl = req.query.url;
     res.download(downloadUrl, function (err) {
         if (err) {
@@ -62,5 +61,4 @@ router.get('/download', function (req, res, next) {
             res.end("下载失败!");
         }
     });
-});
-module.exports = router;
+};
