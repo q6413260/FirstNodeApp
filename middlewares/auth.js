@@ -5,9 +5,9 @@ var eventproxy = require('eventproxy');
 var config = require('../config');
 var User = require('../dao/userDAO');
 
-exports.userRequired = function (req, res, next) {
+exports.loginRequired = function (req, res, next) {
     if (!req.session || !req.session.user || !req.session.user.id) {
-        return res.status(403).send('forbidden!');
+        res.render('login');
     }
     next();
 };
