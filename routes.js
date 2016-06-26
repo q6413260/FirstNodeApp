@@ -5,11 +5,17 @@ var express = require('express');
 var router = express.Router();
 var login = require('./service/login');
 var upload = require('./service/upload');
+var auth = require('./middlewares/auth');
 
 router.get('/login', login.showLogin);
 router.post('/login', login.login);
 
-router.get('/showUpload', upload.showUpload);
+//router.use(function(req, res, next){
+//    console.log('dend');
+//    next();
+//})
+
+router.get('/showUpload', auth.userRequired, upload.showUpload);
 router.get('/getUploadDatas', upload.getUploadDatas);
 router.post('/upload', upload.upload);
 router.post('/submit', upload.submit);
