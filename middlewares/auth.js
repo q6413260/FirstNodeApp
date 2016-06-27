@@ -16,7 +16,7 @@ exports.genSession = function genSession(user, res) {
     var auth_token = user.id + '$$$$'; // 以后可能会存储更多信息，用 $$$$ 来分隔
     var opts = {
         path: '/',
-        maxAge: 1000 * 60 * 60 * 24 * 30,
+        maxAge: 1000 * 60 * 15,
         signed: true,
         httpOnly: true
     };

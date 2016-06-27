@@ -4,71 +4,32 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Dashboard Template for Bootstrap</title>
+    <title>小明の后台管理</title>
     <link rel='stylesheet' href='/bootstrap/css/bootstrap.min.css' />
     <link rel="stylesheet" href="/stylesheets/dashboard.css" />
 </head>
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Help</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar nav-tabs-justified navbar-collapse">
-                <li>
-                    <a href="#systemSetting" class="nav-header" data-toggle="collapse">
-                        <i class="glyphicon glyphicon-cog"></i>
-                        系统管理
-                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                    </a>
-                    <ul id="systemSetting" class="nav nav-tabs-justified">
-                        <li><a href="#" style="margin-left: 20px"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
-                        <li><a href="#" style="margin-left: 20px"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
-                        <li><a href="#" style="margin-left: 20px"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
-                        <li><a href="#" style="margin-left: 20px"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#webAdminSetting" class="nav-header" data-toggle="collapse">
-                        <i class="glyphicon glyphicon-th-list"></i>
-                        网站运营
-                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                    </a>
-                    <ul id="webAdminSetting" class="nav nav-tabs-justified">
-                        <li><a href="#" style="margin-left: 20px"><i class="glyphicon glyphicon-book"></i>下载书籍</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        </div>
-    </div>
+<% include partial/navbar %>
+<% include partial/slidebar %>
+<div class="container">
+    <iframe id="frame" name="frame" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" style="border: 5px;min-height: 1000px;"></iframe>
 </div>
 <script src="/javascripts/jquery-2.1.4.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $(function(){
+       $(".nav-header").click();
+        $(".nav-header").on("click",function(){
+            var that = $(this).find(".pull-right");
+           if(that.hasClass("glyphicon-chevron-down")) {
+               that.removeClass("glyphicon-chevron-down").addClass("glyphicon glyphicon-chevron-up");
+           }else{
+               that.removeClass("glyphicon-chevron-up").addClass("glyphicon glyphicon-chevron-down");
+           }
+        });
+    });
+</script>
 </body>
 </html>
