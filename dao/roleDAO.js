@@ -1,10 +1,10 @@
 /**
- * Created by yeming on 25/6/2016.
+ * Created by yeming on 27/6/2016.
  */
 var Sequelize = require('sequelize');
 var sequelize = require('../data_source');
 
-var User = sequelize.define('user', {
+var Role = sequelize.define('role', {
     id: {
         type: Sequelize.INTEGER,
         field: 'id',
@@ -14,14 +14,9 @@ var User = sequelize.define('user', {
         type: Sequelize.STRING,
         field: 'name'
     },
-    password: {
+    isAdmin: {
         type: Sequelize.STRING,
-        field: 'password'
-    },
-    status: {
-        type:   Sequelize.ENUM,
-        values: [0, 1],
-        field: 'status'
+        field: 'is_admin'
     },
     createdAt: {
         type: Sequelize.DATE,
@@ -41,20 +36,4 @@ var User = sequelize.define('user', {
         type: Sequelize.STRING,
         field: 'updated_by'
     }
-}, {freezeTableName: true});
-
-exports.getUser = function(condition, callBack){
-    User.findAll({
-        where: condition
-    }).then(function(result){
-        var user = result[0].dataValues;
-        callBack(user);
-    })
-};
-
-exports.getUserById = function(userId, callBack){
-    User.findById(userId).then(function(user){
-        callBack(user);
-    })
-};
-
+});

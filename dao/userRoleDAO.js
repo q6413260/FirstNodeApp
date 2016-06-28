@@ -1,26 +1,25 @@
 /**
- * Created by yeming on 25/6/2016.
+ * Created by yeming on 28/6/2016.
  */
 var Sequelize = require('sequelize');
 var sequelize = require('../data_source');
-
-var User = sequelize.define('user', {
+var UserRole = sequelize.define('userRole', {
     id: {
         type: Sequelize.INTEGER,
         field: 'id',
         primaryKey: true
     },
-    name: {
-        type: Sequelize.STRING,
-        field: 'name'
+    userId: {
+        type: Sequelize.INTEGER,
+        field: 'user_id'
     },
-    password: {
-        type: Sequelize.STRING,
-        field: 'password'
+    roleId: {
+        type: Sequelize.INTEGER,
+        field: 'role_id'
     },
     status: {
-        type:   Sequelize.ENUM,
-        values: [0, 1],
+        type: Sequelize.ENUM,
+        value: [0, 1],
         field: 'status'
     },
     createdAt: {
@@ -42,19 +41,3 @@ var User = sequelize.define('user', {
         field: 'updated_by'
     }
 }, {freezeTableName: true});
-
-exports.getUser = function(condition, callBack){
-    User.findAll({
-        where: condition
-    }).then(function(result){
-        var user = result[0].dataValues;
-        callBack(user);
-    })
-};
-
-exports.getUserById = function(userId, callBack){
-    User.findById(userId).then(function(user){
-        callBack(user);
-    })
-};
-

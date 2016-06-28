@@ -1,10 +1,10 @@
 /**
- * Created by yeming on 25/6/2016.
+ * Created by yeming on 27/6/2016.
  */
 var Sequelize = require('sequelize');
 var sequelize = require('../data_source');
 
-var User = sequelize.define('user', {
+var Menu = sequelize.define('menu', {
     id: {
         type: Sequelize.INTEGER,
         field: 'id',
@@ -14,14 +14,22 @@ var User = sequelize.define('user', {
         type: Sequelize.STRING,
         field: 'name'
     },
-    password: {
+    url: {
         type: Sequelize.STRING,
-        field: 'password'
+        field: 'url'
+    },
+    parentId: {
+        type: Sequelize.INTEGER,
+        field: 'parent_id'
+    },
+    orderNo: {
+        type: Sequelize.INTEGER,
+        field: 'order_no'
     },
     status: {
-        type:   Sequelize.ENUM,
-        values: [0, 1],
-        field: 'status'
+        type: Sequelize.ENUM,
+        value: [0, 1],
+        field: 'status',
     },
     createdAt: {
         type: Sequelize.DATE,
@@ -42,19 +50,4 @@ var User = sequelize.define('user', {
         field: 'updated_by'
     }
 }, {freezeTableName: true});
-
-exports.getUser = function(condition, callBack){
-    User.findAll({
-        where: condition
-    }).then(function(result){
-        var user = result[0].dataValues;
-        callBack(user);
-    })
-};
-
-exports.getUserById = function(userId, callBack){
-    User.findById(userId).then(function(user){
-        callBack(user);
-    })
-};
 

@@ -63,6 +63,8 @@ if (app.get('env') === 'development') {
 
 app.locals.formatDate = function(date, dateFormat) {
     return moment(date).format(dateFormat);
-}
+};
+
+app.locals.projectName = '小明の后台管理';
 
 module.exports = app;
