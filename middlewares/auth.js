@@ -4,10 +4,11 @@
 var eventproxy = require('eventproxy');
 var config = require('../config');
 var User = require('../dao/userDAO');
+var Menu = require('../dao/MenuDAO');
 
 exports.loginRequired = function (req, res, next) {
     if (!req.session || !req.session.user || !req.session.user.id) {
-        res.render('login');
+        return res.redirect('login');
     }
     next();
 };
@@ -21,7 +22,26 @@ exports.genSession = function genSession(user, res) {
         httpOnly: true
     };
     res.cookie(config.auth_cookie_name, auth_token, opts); //cookie 有效期30天
-}
+};
+
+exports.authMenuAccess = function (req, res, next) {
+    if (!req.session || !req.session.user || !req.session.user.id) {
+        return res.render('login');
+    }
+    var userId = req.session.user.id;
+    User.getAccessMemuByUserId(userId, function(result){
+        console.log(result);
+        result.forEach(function(item){
+            var menuId = item.dataValues.menuId;
+            Menu.getMenuById(menuId, function(menu){
+                var url = req.path;
+                if(url.indexOf(menu.dataValues.url) > -1){
+                    return next();
+                }
+            });
+        });
+    });
+};
 
 // 验证用户是否登录
 exports.authUser = function (req, res, next) {

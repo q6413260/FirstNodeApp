@@ -19,7 +19,7 @@ var UserRole = sequelize.define('userRole', {
     },
     status: {
         type: Sequelize.ENUM,
-        value: [0, 1],
+        values: [0, 1],
         field: 'status'
     },
     createdAt: {
@@ -41,3 +41,5 @@ var UserRole = sequelize.define('userRole', {
         field: 'updated_by'
     }
 }, {freezeTableName: true});
+
+module.exports = UserRole;

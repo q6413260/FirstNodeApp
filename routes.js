@@ -10,7 +10,7 @@ var auth = require('./middlewares/auth');
 router.get('/login', login.showLogin);
 router.post('/login', login.login);
 
-router.get('/showUpload', auth.loginRequired, upload.showUpload);
+router.get('/showUpload', auth.loginRequired, auth.authMenuAccess, upload.showUpload);
 router.get('/getUploadDatas', upload.getUploadDatas);
 router.post('/upload', upload.upload);
 router.post('/submit', upload.submit);

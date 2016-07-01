@@ -28,7 +28,7 @@ var Menu = sequelize.define('menu', {
     },
     status: {
         type: Sequelize.ENUM,
-        value: [0, 1],
+        values: ['Y', 'N'],
         field: 'status',
     },
     createdAt: {
@@ -50,4 +50,10 @@ var Menu = sequelize.define('menu', {
         field: 'updated_by'
     }
 }, {freezeTableName: true});
+
+exports.getMenuById = function(id, callback){
+    Menu.findById(id).then(function(menu){
+        callback(menu);
+    });
+};
 

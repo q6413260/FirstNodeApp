@@ -1,12 +1,9 @@
 /**
  * Created by yeming on 28/6/2016.
  */
-/**
- * Created by yeming on 28/6/2016.
- */
 var Sequelize = require('sequelize');
 var sequelize = require('../data_source');
-var MenuRole = sequelize.define('menuRole', {
+var MenuRole = sequelize.define('menu_role', {
     id: {
         type: Sequelize.INTEGER,
         field: 'id',
@@ -22,7 +19,7 @@ var MenuRole = sequelize.define('menuRole', {
     },
     status: {
         type: Sequelize.ENUM,
-        value: [0, 1],
+        values: ['Y', 'N'],
         field: 'status'
     },
     createdAt: {
@@ -44,4 +41,6 @@ var MenuRole = sequelize.define('menuRole', {
         field: 'updated_by'
     }
 }, {freezeTableName: true});
+
+module.exports = MenuRole;
 

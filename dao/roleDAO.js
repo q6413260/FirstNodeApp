@@ -15,7 +15,8 @@ var Role = sequelize.define('role', {
         field: 'name'
     },
     isAdmin: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM,
+        values: ['Y', 'N'],
         field: 'is_admin'
     },
     createdAt: {
@@ -36,4 +37,6 @@ var Role = sequelize.define('role', {
         type: Sequelize.STRING,
         field: 'updated_by'
     }
-});
+}, {freezeTableName: true});
+
+module.exports = Role;

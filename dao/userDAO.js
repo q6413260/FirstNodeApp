@@ -3,6 +3,10 @@
  */
 var Sequelize = require('sequelize');
 var sequelize = require('../data_source');
+var Role = require('./roleDAO');
+var Menu = require('./menuDAO');
+var MenuRole = require('./menuRoleDAO');
+var UserRole = require('./userRoleDAO');
 
 var User = sequelize.define('user', {
     id: {
@@ -19,9 +23,13 @@ var User = sequelize.define('user', {
         field: 'password'
     },
     status: {
-        type:   Sequelize.ENUM,
+        type: Sequelize.ENUM,
         values: [0, 1],
         field: 'status'
+    },
+    roleId: {
+        type: Sequelize.INTEGER,
+        field: 'role_id'
     },
     createdAt: {
         type: Sequelize.DATE,
@@ -42,6 +50,29 @@ var User = sequelize.define('user', {
         field: 'updated_by'
     }
 }, {freezeTableName: true});
+
+User.belongsTo(Role);
+
+exports.getUserRoleByName = function(name, callBack){
+    User.findOne({
+        include: [{
+            model: Role,
+            required: true,
+            attributes: ['isAdmin']
+        }],
+        where: {name: name}
+    }).then(function (user) {
+        console.log(JSON.stringify(user));
+    });
+};
+
+exports.getAccessMemuByUserId = function(id, callBack){
+    sequelize.query('select u.id as id, m.menu_id as menuId from user u inner join menu_role m ' +
+        'on u.role_id = m.role_id where u.id = :id', {model: MenuRole, replacements: {id: id}})
+        .then(function(result){
+            callBack(result);
+        });
+};
 
 exports.getUser = function(condition, callBack){
     User.findAll({
