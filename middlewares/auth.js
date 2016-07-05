@@ -26,16 +26,17 @@ exports.genSession = function genSession(user, res) {
 
 exports.authMenuAccess = function (req, res, next) {
     if (!req.session || !req.session.user || !req.session.user.id) {
-        return res.render('login');
+        return res.redirect('/login');
     }
     var userId = req.session.user.id;
     User.getAccessMemuByUserId(userId, function(result){
-        console.log(result);
+        var result = JSON.parse(result);
+        var flg = true;
         result.forEach(function(item){
-            var menuId = item.dataValues.menuId;
-            Menu.getMenuById(menuId, function(menu){
+            Menu.getMenuById(item.menuId, function(menu){
                 var url = req.path;
-                if(url.indexOf(menu.dataValues.url) > -1){
+                if(flg && url.indexOf(menu.dataValues.url) > -1){
+                    flg = false;
                     return next();
                 }
             });

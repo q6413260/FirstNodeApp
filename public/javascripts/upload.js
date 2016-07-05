@@ -42,7 +42,6 @@
             "ordering": true,
             "info": true,
             "destory": true,
-            "scrollX": true,
             "aoColumnDefs": [
                 {
                     sDefaultContent: '',

@@ -3,6 +3,7 @@
  */
 var Sequelize = require('sequelize');
 var sequelize = require('../data_source');
+var Menu = require('./menuDAO').Menu;
 var MenuRole = sequelize.define('menu_role', {
     id: {
         type: Sequelize.INTEGER,
@@ -42,5 +43,13 @@ var MenuRole = sequelize.define('menu_role', {
     }
 }, {freezeTableName: true});
 
-module.exports = MenuRole;
+exports.getMenuByRoleId = function(roleId, callback){
+    sequelize.query('select m.id, m.name, m.level, m.order_no as orderNo, m.url, m.parent_id as parentId, mr.role_id as roleId' +
+        ' from menu m inner join menu_role mr on m.id=mr.menu_id where mr.role_id = :roleId',
+        {model: Menu, replacements: {roleId: roleId}}).then(function(menus){
+        callback(JSON.stringify(menus));
+    });
+};
+
+
 

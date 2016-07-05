@@ -66,11 +66,11 @@ exports.getUserRoleByName = function(name, callBack){
     });
 };
 
-exports.getAccessMemuByUserId = function(id, callBack){
+exports.getAccessMemuByUserId = function (id, callBack) {
     sequelize.query('select u.id as id, m.menu_id as menuId from user u inner join menu_role m ' +
-        'on u.role_id = m.role_id where u.id = :id', {model: MenuRole, replacements: {id: id}})
-        .then(function(result){
-            callBack(result);
+            'on u.role_id = m.role_id where u.id = :id', {model: User, replacements: {id: id}})
+        .then(function (result) {
+            callBack(JSON.stringify(result));
         });
 };
 
@@ -78,7 +78,7 @@ exports.getUser = function(condition, callBack){
     User.findAll({
         where: condition
     }).then(function(result){
-        var user = result[0].dataValues;
+        var user = JSON.stringify(result);
         callBack(user);
     })
 };

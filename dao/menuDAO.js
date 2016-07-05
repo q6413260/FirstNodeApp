@@ -26,6 +26,10 @@ var Menu = sequelize.define('menu', {
         type: Sequelize.INTEGER,
         field: 'order_no'
     },
+    level:{
+        type: Sequelize.ENUM,
+        values: [1, 2, 3]
+    },
     status: {
         type: Sequelize.ENUM,
         values: ['Y', 'N'],
@@ -51,9 +55,20 @@ var Menu = sequelize.define('menu', {
     }
 }, {freezeTableName: true});
 
+exports.Menu = Menu;
+
 exports.getMenuById = function(id, callback){
     Menu.findById(id).then(function(menu){
         callback(menu);
+    });
+};
+
+exports.getAllMenus = function(callback){
+    Menu.findAll({
+        where: {status: 'Y'},
+        order: ['level', 'asc']
+    }).then(function(menus){
+        callback(JSON.stringify(menus));
     });
 };
 

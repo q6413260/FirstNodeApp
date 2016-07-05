@@ -9,7 +9,6 @@ var auth = require('./middlewares/auth')
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var config = require('./config');
-var User = require('./dao/userDAO');
 
 var moment = require('moment');
 
@@ -63,7 +62,5 @@ app.locals.formatDate = function(date, dateFormat) {
 };
 
 app.locals.projectName = '小明の后台管理';
-
-//User.getUserRoleByName('q6413260');
 
 module.exports = app;

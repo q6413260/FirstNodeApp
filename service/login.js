@@ -27,10 +27,11 @@ exports.login = function(req, res, next){
     condition['password'] = password;
 
     User.getUser(condition, function(user){
+        var user = JSON.parse(user);
         if(user.length==0){
             return ep.emit('error', '用户不存在,请检查用户名或者密码');
         }
-        auth.genSession(user, res);
-        res.redirect('showUpload');
+        auth.genSession(user[0], res);
+        res.redirect('/');
     });
 }
